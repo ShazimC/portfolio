@@ -2,6 +2,7 @@
 import { defineConfig } from 'astro/config';
 import node from '@astrojs/node';
 import mdx from '@astrojs/mdx';
+import react from '@astrojs/react';
 
 // https://astro.build/config
 export default defineConfig({
@@ -10,7 +11,7 @@ export default defineConfig({
     mode: 'standalone',
   }),
 
-  integrations: [mdx()],
+  integrations: [mdx(), react()],
   server: {
     host: '::', // needed for railway
   },
