@@ -1,0 +1,54 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  book: CollectionEntry<'books'>;
+}
+
+const entry = Astro.props.book;
+const book = entry.data;
+---
+
+<div class="book-card">
+  <div class="row book-card-header">
+    <h3 class="book-card-title">{book.title}</h3>
+    <span class="book-card-rating">{book.rating}/10</span>
+  </div>
+
+  <span class="book-card-author">{book.author}</span>
+  <p class="book-card-summary">{book.summary}</p>
+
+  <a href={`/books/${entry.id}`} class="button">Read review</a>
+</div>
+
+<style>
+  .book-card {
+    background-color: #f9f6fc;
+    padding: 16px 20px;
+    margin: 20px auto;
+    box-shadow: 8px 8px 0 #ebe5f2;
+  }
+
+  .book-card-header {
+    justify-content: space-between;
+  }
+
+  .book-card-title {
+    font-size: 1.4em;
+    font-weight: bold;
+    margin: 0;
+  }
+
+  .book-card-rating {
+    font-weight: bold;
+    color: #888;
+  }
+
+  .book-card-author {
+    margin-top: 0;
+  }
+
+  .book-card-summary {
+    font-size: 1em;
+  }
+</style>

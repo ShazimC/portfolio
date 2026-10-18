@@ -1,0 +1,21 @@
+---
+import Base from '../../layouts/Base.astro';
+import BookCard from '../../components/BookCard.astro';
+import { getCollection } from 'astro:content';
+
+const books = await getCollection('books');
+---
+
+<Base>
+  <h2>Books</h2>
+
+  {books.map((book) => <BookCard book={book} />)}
+
+  {!books.length && <p class="empty">No books to show.</p>}
+</Base>
+
+<style>
+  .empty {
+    color: #999;
+  }
+</style>

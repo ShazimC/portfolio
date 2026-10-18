@@ -1,17 +1,43 @@
 ---
+import Base from '../layouts/Base.astro';
 
+const getUser = () => {
+  return Math.random() < 0.5
+    ? null
+    : {
+        name: 'mario',
+        email: 'mario@bookbites.com',
+      };
+};
+
+const user = getUser();
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" href="/favicon.ico" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <title>Astro</title>
-  </head>
-  <body>
-    <h1>Shazim's portfolio</h1>
-  </body>
-</html>
+<Base>
+  <div class="container">
+    {
+      user && (
+        <>
+          <h2>Welcome, {user.name}!</h2>
+          <span>Logged in as {user.email}</span>
+        </>
+      )
+    }
+
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit aut suscipit atque
+      iste incidunt vel commodi hic quibusdam, aliquam deserunt ducimus, rerum praesentium quae quod
+      quasi sunt tempore tempora vitae.
+    </p>
+
+    <a href="/books" class="button">Take a look at my reviews</a>
+  </div>
+</Base>
+
+<style>
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+</style>
