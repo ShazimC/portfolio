@@ -4,6 +4,16 @@ import Base from '../../layouts/Base.astro';
 interface Product {
   title: string;
 }
+
+const response = await fetch('https://dummyjson.com/products');
+const json = await response.json();
+const products: Product[] = json.products;
 ---
 
-<Base />
+<Base>
+  {
+    products.map((product) => {
+      return <div>{product.title}</div>;
+    })
+  }
+</Base>
