@@ -6,7 +6,7 @@
   --text: light-dark(oklch(0.24 0.00003 0), oklch(89.079% 0.0249 53.527));
   --text-muted: light-dark(oklch(0.6268 0 0), oklch(0.7 0 0));
   --primary: light-dark(oklch(61.013% 0.11179 12.144), oklch(0.5162 0.1159 13.24));
-  --shadow-color: light-dark(oklch(0.9304 0.0185 306.66), oklch(0.2 0.0174 266.36));
+  --shadow-color: light-dark(oklch(61.339% 0.01758 2.774), oklch(0.2081 0.0074 0));
 
   /* Fonts */
   --font-display: 'Josefin Sans', sans-serif;

@@ -79,6 +79,7 @@ const { title, subtitle } = Astro.props;
       margin-top: 0;
       padding: 0 var(--space-3);
       text-decoration: none;
+      width: fit-content;
     }
 
     .photo {
@@ -87,6 +88,18 @@ const { title, subtitle } = Astro.props;
       height: 7rem;
       object-fit: cover;
       border-radius: var(--radius-lg);
+
+      transition: all 150ms ease-in-out;
+    }
+
+    .photo:hover {
+      transform: scale(1.04);
+      box-shadow: 1px 1px 12px var(--shadow-color);
+    }
+
+    .photo:active {
+      transform: scale(0.96);
+      box-shadow: none;
     }
 
     ul {
