@@ -67,7 +67,10 @@
   /* Motion */
   --duration-fast: 150ms;
   --duration-normal: 250ms;
+  --duration-slow: 400ms;
   --ease: ease-in-out;
+  --page-slide-distance: var(--space-12);
+  --page-reveal-mask: linear-gradient(to bottom, #000 33%, transparent 66%);
 }
 
 :root[data-theme='light'] {

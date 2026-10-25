@@ -1,8 +1,16 @@
 <script is:inline>
-  try {
-    const theme = localStorage.getItem('theme');
-    if (theme === 'light' || theme === 'dark') {
-      document.documentElement.dataset.theme = theme;
-    }
-  } catch {}
+  (() => {
+    const applyTheme = (doc) => {
+      try {
+        const theme = localStorage.getItem('theme');
+        if (theme === 'light' || theme === 'dark') {
+          doc.documentElement.dataset.theme = theme;
+        }
+      } catch {}
+    };
+
+    applyTheme(document);
+    // ClientRouter replaces <html> attributes on navigation; set the theme on the incoming page first.
+    document.addEventListener('astro:before-swap', (event) => applyTheme(event.newDocument));
+  })();
 </script>

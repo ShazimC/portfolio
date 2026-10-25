@@ -1,0 +1,19 @@
+@keyframes page-hide {
+  to {
+    opacity: 0;
+  }
+}
+
+/* A tall gradient mask (opaque → transparent) slides down so the top reveals first. */
+@keyframes page-in {
+  from {
+    mask-image: var(--page-reveal-mask);
+    mask-size: 100% 300%;
+    mask-position: 0 100%;
+  }
+  to {
+    mask-image: var(--page-reveal-mask);
+    mask-size: 100% 300%;
+    mask-position: 0 0;
+  }
+}
