@@ -5,7 +5,7 @@
   --surface: light-dark(oklch(0.9771 0.0085 308.36), oklch(0.2581 0.0074 0));
   --text: light-dark(oklch(0.24 0.00003 0), oklch(0.88 0.0271 54.53));
   --text-muted: light-dark(oklch(0.6268 0 0), oklch(0.7 0 0));
-  --primary: oklch(0.5162 0.1159 13.24);
+  --primary: light-dark(oklch(61.013% 0.11179 12.144), oklch(0.5162 0.1159 13.24));
   --shadow-color: light-dark(oklch(0.9304 0.0185 306.66), oklch(0.2 0.0174 266.36));
 
   /* Fonts */
@@ -25,7 +25,7 @@
   --text-6xl: 3rem;
 
   /* Font weights */
-  --weight-light: 200;
+  --weight-light: 300;
   --weight-regular: 400;
   --weight-medium: 500;
   --weight-semibold: 600;

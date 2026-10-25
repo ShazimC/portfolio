@@ -4,6 +4,7 @@ import '../styles/global.css';
 import ThemeScript from '../components/ThemeScript.astro';
 import { Image } from 'astro:assets';
 import avatar from '../assets/photos/IMG_1902.jpg';
+import ThemeToggle from '../components/ThemeToggle.astro';
 ---
 
 <html lang="en">
@@ -39,7 +40,7 @@ import avatar from '../assets/photos/IMG_1902.jpg';
         <li><a href="/work/">Work</a></li>
         <li><a href="/thoughts/">Thoughts</a></li>
       </ul>
-      <!-- <ThemeToggle /> -->
+      <ThemeToggle />
     </nav>
 
     <main class="content">
@@ -53,7 +54,7 @@ import avatar from '../assets/photos/IMG_1902.jpg';
     width: 100%;
     max-width: var(--width-content);
     box-sizing: border-box;
-    margin-top: var(--space-3);
+    margin-top: var(--space-5);
   }
   .photo {
     display: block;
