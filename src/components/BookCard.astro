@@ -23,10 +23,10 @@ const book = entry.data;
 
 <style>
   .book-card {
-    background-color: #f9f6fc;
-    padding: 16px 20px;
-    margin: 20px auto;
-    box-shadow: 8px 8px 0 #ebe5f2;
+    background-color: var(--surface);
+    padding: var(--space-4) var(--space-5);
+    margin: var(--space-5) auto;
+    box-shadow: var(--shadow-hard);
   }
 
   .book-card-header {
@@ -34,14 +34,14 @@ const book = entry.data;
   }
 
   .book-card-title {
-    font-size: 1.4em;
-    font-weight: bold;
+    font-size: var(--text-2xl);
+    font-weight: var(--weight-bold);
     margin: 0;
   }
 
   .book-card-rating {
-    font-weight: bold;
-    color: #888;
+    font-weight: var(--weight-bold);
+    color: var(--text-muted);
   }
 
   .book-card-author {
@@ -49,6 +49,6 @@ const book = entry.data;
   }
 
   .book-card-summary {
-    font-size: 1em;
+    font-size: var(--text-base);
   }
 </style>

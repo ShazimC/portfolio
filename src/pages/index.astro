@@ -1,36 +1,18 @@
 ---
 import Base from '../layouts/Base.astro';
-
-const getUser = () => {
-  return Math.random() < 0.5
-    ? null
-    : {
-        name: 'mario',
-        email: 'mario@bookbites.com',
-      };
-};
-
-const user = getUser();
 ---
 
 <Base>
+  <h1 class="title">Shazim</h1>
+  <h2 class="subtitle">Polymath, creator, and advocate.</h2>
   <div class="container">
-    {
-      user && (
-        <>
-          <h2>Welcome, {user.name}!</h2>
-          <span>Logged in as {user.email}</span>
-        </>
-      )
-    }
-
     <p>
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit aut suscipit atque
-      iste incidunt vel commodi hic quibusdam, aliquam deserunt ducimus, rerum praesentium quae quod
-      quasi sunt tempore tempora vitae.
+      A few months ago, AI math results started making headlines. “Do a breakthrough” became a
+      Twitter meme. Naturally, I became curious whether I, too, a math noob, can find some open
+      mathematical problem and then have a frontier model solve it. It took me an entire month of my
+      free time and a boatload of tokens, but I believe I’ve obtained a Lean proof of this
+      conjecture posed by John Conway 50 years ago:
     </p>
-
-    <a href="/books" class="button">Take a look at my reviews</a>
   </div>
 </Base>
 
@@ -39,5 +21,10 @@ const user = getUser();
     display: flex;
     flex-direction: column;
     align-items: center;
+  }
+
+  .subtitle {
+    font-weight: var(--weight-light);
+    margin-top: var(--space-2);
   }
 </style>

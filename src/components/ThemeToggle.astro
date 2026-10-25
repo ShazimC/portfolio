@@ -1,0 +1,43 @@
+<button type="button" class="theme-toggle" aria-label="Toggle theme">◐</button>
+
+<script>
+  const root = document.documentElement;
+  const light = 'light';
+  const dark = 'dark';
+
+  const getTheme = () => {
+    if (root.dataset.theme) {
+      return root.dataset.theme;
+    }
+
+    // Check what theme setting the browser is passing to window.
+    if (matchMedia('(prefers-color-scheme: dark)').matches) {
+      return dark;
+    }
+
+    return light;
+  };
+
+  document.querySelectorAll('.theme-toggle').forEach((button) => {
+    button.addEventListener('click', () => {
+      const next = getTheme() === dark ? light : dark;
+      root.dataset.theme = next;
+      try {
+        localStorage.setItem('theme', next);
+      } catch {}
+    });
+  });
+</script>
+
+<style>
+  .theme-toggle {
+    align-self: flex-start;
+    margin-top: var(--space-8);
+    padding: var(--space-1) var(--space-3);
+    background: none;
+    border: none;
+    color: var(--text);
+    font-size: var(--text-xl);
+    cursor: pointer;
+  }
+</style>
