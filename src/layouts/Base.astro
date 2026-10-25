@@ -2,12 +2,10 @@
 import '../styles/tokens.css';
 import '../styles/global.css';
 import '../styles/transitions.css';
-import ThemeScript from '../components/ThemeScript.astro';
 import { Image } from 'astro:assets';
 import { ClientRouter } from 'astro:transitions';
 import { fadeSlide } from '../lib/transitions';
 import avatar from '../assets/photos/IMG_1902.jpg';
-import ThemeToggle from '../components/ThemeToggle.astro';
 
 interface Props {
   title: string;
@@ -31,7 +29,6 @@ const { title, subtitle } = Astro.props;
       rel="stylesheet"
     />
     <title>Shazim's portfolio</title>
-    <ThemeScript />
     <ClientRouter />
   </head>
   <body>
@@ -51,7 +48,6 @@ const { title, subtitle } = Astro.props;
         <li><a href="/work/">Work</a></li>
         <li><a href="/thoughts/">Thoughts</a></li>
       </ul>
-      <ThemeToggle />
     </nav>
 
     <main class="content" transition:animate={fadeSlide}>

@@ -72,11 +72,3 @@
   --page-slide-distance: var(--space-12);
   --page-reveal-mask: linear-gradient(to bottom, #000 33%, transparent 66%);
 }
-
-:root[data-theme='light'] {
-  color-scheme: light;
-}
-
-:root[data-theme='dark'] {
-  color-scheme: dark;
-}
