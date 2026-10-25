@@ -3,14 +3,14 @@
   color-scheme: light dark;
   --background: light-dark(oklch(0.9376 0 0), oklch(0.2581 0.0074 0));
   --surface: light-dark(oklch(0.9771 0.0085 308.36), oklch(0.2581 0.0074 0));
-  --text: light-dark(oklch(0.24 0.00003 0), oklch(0.88 0.0271 54.53));
+  --text: light-dark(oklch(0.24 0.00003 0), oklch(89.079% 0.0249 53.527));
   --text-muted: light-dark(oklch(0.6268 0 0), oklch(0.7 0 0));
   --primary: light-dark(oklch(61.013% 0.11179 12.144), oklch(0.5162 0.1159 13.24));
   --shadow-color: light-dark(oklch(0.9304 0.0185 306.66), oklch(0.2 0.0174 266.36));
 
   /* Fonts */
   --font-display: 'Josefin Sans', sans-serif;
-  --font-body: 'Cormorant Garamond', serif;
+  --font-body: 'Cormorant Infant', serif;
 
   /* Font sizes */
   --text-xs: 0.75rem;
