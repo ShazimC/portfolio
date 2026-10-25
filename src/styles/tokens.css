@@ -1,8 +1,8 @@
 :root {
   /* Colors */
   color-scheme: light dark;
-  --background: light-dark(oklch(0.9376 0 0), oklch(0.2581 0.0074 0));
-  --surface: light-dark(oklch(0.9771 0.0085 308.36), oklch(0.2581 0.0074 0));
+  --background: light-dark(oklch(92.963% 0.00648 53.527), oklch(0.2581 0.0074 0));
+  --surface: light-dark(oklch(92.963% 0.00648 53.527), oklch(0.2581 0.0074 0));
   --text: light-dark(oklch(0.24 0.00003 0), oklch(89.079% 0.0249 53.527));
   --text-muted: light-dark(oklch(0.6268 0 0), oklch(0.7 0 0));
   --primary: light-dark(oklch(61.013% 0.11179 12.144), oklch(0.5162 0.1159 13.24));
@@ -46,6 +46,7 @@
   --space-8: 2rem;
   --space-10: 2.5rem;
   --space-12: 3rem;
+  --space-14: 3.5rem;
   --space-16: 4rem;
 
   /* Layout widths */

@@ -2,29 +2,12 @@
 import Base from '../layouts/Base.astro';
 ---
 
-<Base>
-  <h1 class="title">Shazim</h1>
-  <h2 class="subtitle">Polymath, creator, and advocate.</h2>
-  <div class="container">
-    <p>
-      A few months ago, AI math results started making headlines. “Do a breakthrough” became a
-      Twitter meme. Naturally, I became curious whether I, too, a math noob, can find some open
-      mathematical problem and then have a frontier model solve it. It took me an entire month of my
-      free time and a boatload of tokens, but I believe I’ve obtained a Lean proof of this
-      conjecture posed by John Conway 50 years ago:
-    </p>
-  </div>
+<Base title="Shazim" subtitle="Polymath, creator, and advocate.">
+  <p>
+    A few months ago, AI math results started making headlines. “Do a breakthrough” became a
+    Twitter meme. Naturally, I became curious whether I, too, a math noob, can find some open
+    mathematical problem and then have a frontier model solve it. It took me an entire month of my
+    free time and a boatload of tokens, but I believe I’ve obtained a Lean proof of this
+    conjecture posed by John Conway 50 years ago:
+  </p>
 </Base>
-
-<style>
-  .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .subtitle {
-    font-weight: var(--weight-light);
-    margin-top: var(--space-2);
-  }
-</style>

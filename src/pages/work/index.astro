@@ -10,8 +10,7 @@ const json = await response.json();
 const products: Product[] = json.products;
 ---
 
-<Base>
-  <h1>Work</h1>
+<Base title="Work">
   {
     products.map((product) => {
       return <div>{product.title}</div>;
