@@ -7,6 +7,7 @@
   --text-selected: light-dark(oklch(89.218% 0.02631 38.285), oklch(36.838% 0.03361 4.384));
   --text-muted: light-dark(oklch(0.6268 0 0), oklch(0.7 0 0));
   --primary: light-dark(oklch(61.013% 0.11179 12.144), oklch(0.5162 0.1159 13.24));
+  --link: light-dark(oklch(54% 0.11179 12.144), oklch(0.6 0.1159 13.24));
   --shadow-color: light-dark(oklch(61.339% 0.01758 2.774), oklch(0.2081 0.0074 0));
 
   /* Fonts */
@@ -69,6 +70,12 @@
   --duration-normal: 250ms;
   --duration-slow: 400ms;
   --ease: ease-in-out;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --page-slide-distance: var(--space-12);
   --page-reveal-mask: linear-gradient(to bottom, #000 33%, transparent 66%);
+
+  /* Pen stroke (tapered ink underline) */
+  --pen-stroke: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10' preserveAspectRatio='none'%3E%3Cpath d='M0 6C20 5.1 40 4.9 60 5S90 5.4 100 5.5C96 6.1 82 6.6 64 6.7S24 7.2 0 6Z'/%3E%3C/svg%3E");
+  --pen-height: 0.5em;
+  --pen-rest-opacity: 0.5;
 }

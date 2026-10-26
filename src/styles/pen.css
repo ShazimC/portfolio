@@ -1,0 +1,80 @@
+/*
+ * Pen stroke: a tapered, hand-drawn ink underline.
+ *   a, .pen-draw   faint stroke at rest; full stroke drawn in on hover/focus, dries away on leave
+ *   .pen           full stroke always shown (also works on links)
+ *   .pen-none      no stroke (image or button links)
+ * Tune per element with --pen-inset (horizontal overhang), --pen-offset (distance below)
+ * and --pen-rest-opacity (faint stroke strength; 0 hides it).
+ */
+
+:where(a, .pen, .pen-draw) {
+  position: relative;
+  display: inline-block;
+  text-decoration: none;
+  transition: transform var(--duration-fast) var(--ease-out);
+}
+
+/* ::after is the full stroke; ::before is the faint resting stroke on drawable elements. */
+:where(a, .pen, .pen-draw)::after,
+:where(a:not(.pen), .pen-draw)::before {
+  content: '';
+  position: absolute;
+  left: var(--pen-inset, -0.1em);
+  right: var(--pen-inset, -0.1em);
+  bottom: var(--pen-offset, -0.38em);
+  height: var(--pen-height);
+  background: var(--primary);
+  mask: var(--pen-stroke) center / 100% 100% no-repeat;
+  pointer-events: none;
+  transition: transform var(--duration-fast) var(--ease-out);
+}
+
+:where(a:not(.pen), .pen-draw)::before {
+  opacity: var(--pen-rest-opacity);
+}
+
+:where(a, .pen, .pen-draw):active {
+  transform: translateY(1px);
+}
+
+:where(a, .pen, .pen-draw):active::after,
+:where(a:not(.pen), .pen-draw):active::before {
+  transform: scaleY(1.5);
+}
+
+:where(a:not(.pen), .pen-draw)::after {
+  clip-path: inset(0 100% 0 0);
+  opacity: 0;
+  /* On leave: fade out, then reset the clip once invisible. */
+  transition:
+    opacity var(--duration-normal) var(--ease-out),
+    clip-path 0s var(--duration-normal),
+    transform var(--duration-fast) var(--ease-out);
+}
+
+:where(a:not(.pen), .pen-draw):is(:hover, :focus-visible)::after {
+  clip-path: inset(0 0 0 0);
+  opacity: 1;
+  transition:
+    clip-path var(--duration-slow) var(--ease-out),
+    opacity 0s,
+    transform var(--duration-fast) var(--ease-out);
+}
+
+:where(.pen-none, .button)::before,
+:where(.pen-none, .button)::after {
+  content: none;
+}
+
+:where(.pen-none, .button):active {
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where(a, .pen, .pen-draw),
+  :where(a, .pen, .pen-draw)::before,
+  :where(a, .pen, .pen-draw)::after,
+  :where(a:not(.pen), .pen-draw):is(:hover, :focus-visible)::after {
+    transition: none;
+  }
+}

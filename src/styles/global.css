@@ -15,7 +15,7 @@ body {
 }
 
 a {
-  color: inherit;
+  color: var(--link);
 }
 
 button,
@@ -50,7 +50,7 @@ h4 {
 p {
   font-size: var(--text-xl);
   font-family: var(--font-body);
-  font-weight: var(--weight-regular);
+  font-weight: var(--weight-medium);
   line-height: var(--leading-normal);
 }
 

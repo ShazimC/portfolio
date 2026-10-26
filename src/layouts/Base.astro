@@ -2,6 +2,7 @@
 import '../styles/tokens.css';
 import '../styles/global.css';
 import '../styles/transitions.css';
+import '../styles/pen.css';
 import { Image } from 'astro:assets';
 import { ClientRouter } from 'astro:transitions';
 import { fadeSlide } from '../lib/transitions';
@@ -33,7 +34,7 @@ const { title, subtitle } = Astro.props;
   </head>
   <body>
     <nav transition:persist transition:name="nav" transition:animate="none">
-      <a href="/" class="nav-title">
+      <a href="/" class="nav-title pen-none">
         <Image
           src={avatar}
           alt="Shazim Ch."
@@ -92,12 +93,12 @@ const { title, subtitle } = Astro.props;
     }
 
     .photo:hover {
-      transform: scale(1.04);
-      box-shadow: 1px 1px 12px var(--shadow-color);
+      transform: scale(1.01);
+      box-shadow: 0.5px 0.5px 5px var(--shadow-color);
     }
 
     .photo:active {
-      transform: scale(0.96);
+      transform: scale(0.98);
       box-shadow: none;
     }
 
@@ -110,19 +111,14 @@ const { title, subtitle } = Astro.props;
       margin-top: var(--space-14);
       gap: var(--space-2);
 
-      li {
-        a {
-          display: block;
-          padding: var(--space-2) var(--space-3);
-          transition: all var(--duration-fast) var(--ease);
-          text-decoration: none;
-          border-radius: var(--radius-md);
-        }
-
-        a:hover,
-        a:active {
-          background-color: var(--primary);
-        }
+      li a {
+        display: block;
+        width: fit-content;
+        padding: var(--space-2) var(--space-3);
+        color: inherit;
+        --pen-inset: var(--space-2);
+        --pen-offset: 0;
+        --pen-rest-opacity: 0;
       }
     }
   }
