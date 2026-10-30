@@ -1,0 +1,9 @@
+- id: languages
+  label: Languages
+  items: [JavaScript, TypeScript, HTML, CSS, C#, Java, Python]
+- id: frameworks
+  label: Frameworks & Libraries
+  items: [React, .NET, Angular, Node.js, Express, React Native, Spring Boot]
+- id: tools
+  label: Tools & Technologies
+  items: [Docker, Kubernetes, Azure, Git, Unix CLI, MongoDB, SQL, PostgreSQL]

@@ -1,19 +1,174 @@
 ---
 import Base from '../../layouts/Base.astro';
+import { formatMonth, formatRange, getAwards, getCompanies, getProjects } from '../../lib/resume';
 
-interface Product {
-  title: string;
-}
-
-const response = await fetch('https://dummyjson.com/products');
-const json = await response.json();
-const products: Product[] = json.products;
+const [companies, projects, awards] = await Promise.all([getCompanies(), getProjects(), getAwards()]);
+const stackOf = (roles: (typeof companies)[number]['roles']) => [...new Set(roles.flatMap((role) => role.stack))];
 ---
 
 <Base title="Work" subtitle="To grow.">
-  {
-    products.map((product) => {
-      return <p>{product.title}</p>;
-    })
-  }
+  <section>
+    <h2 class="eyebrow">Experience</h2>
+    <ol class="entries">
+      {
+        companies.map((company) => (
+          <li>
+            <h3 class="name">{company.name}</h3>
+            {company.roles.map((role) => (
+              <div class="role">
+                <p class="role-title">
+                  {role.title} <span class="team">· {role.team}</span>
+                </p>
+                <p class="meta">
+                  <span>{formatRange(role.start, role.end)}</span>
+                  <span aria-hidden="true">·</span>
+                  <span>{role.location}</span>
+                </p>
+                <ul class="highlights">
+                  {role.highlights
+                    .filter((highlight) => highlight.featured)
+                    .map(({ label, text }) => (
+                      <li>
+                        {label && <strong>{label}.</strong>} {text}
+                      </li>
+                    ))}
+                </ul>
+              </div>
+            ))}
+            <p class="stack">{stackOf(company.roles).join(' · ')}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+
+  <section>
+    <h2 class="eyebrow">Projects</h2>
+    <ul class="entries">
+      {
+        projects.map(({ data }) => (
+          <li>
+            <h3 class="name">{data.url ? <a href={data.url}>{data.name}</a> : data.name}</h3>
+            <p class="meta">
+              <span>{data.kind}</span>
+              {data.status && (
+                <>
+                  <span aria-hidden="true">·</span>
+                  <span>{data.status}</span>
+                </>
+              )}
+            </p>
+            <p class="description">{data.description}</p>
+            <p class="stack">{data.stack.join(' · ')}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section>
+    <h2 class="eyebrow">Awards</h2>
+    <ul class="entries">
+      {
+        awards.map(({ data }) => (
+          <li>
+            <h3 class="name">{data.title}</h3>
+            <p class="meta">{formatMonth(data.date)}</p>
+            <p class="description">{data.description}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
 </Base>
+
+<style>
+  section + section {
+    margin-top: var(--space-16);
+  }
+
+  .eyebrow {
+    margin-bottom: var(--space-8);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-regular);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--primary);
+  }
+
+  .entries {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-12);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .name {
+    font-size: var(--text-3xl);
+    font-weight: var(--weight-regular);
+    line-height: var(--leading-tight);
+  }
+
+  .role {
+    margin-top: var(--space-4);
+
+    & + & {
+      margin-top: var(--space-8);
+    }
+  }
+
+  .role-title {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: var(--weight-light);
+  }
+
+  .team {
+    color: var(--text-muted);
+  }
+
+  .meta {
+    margin: var(--space-2) 0 0;
+  }
+
+  .highlights {
+    margin: var(--space-4) 0 0;
+    padding-left: var(--space-6);
+    list-style-type: disc;
+
+    li {
+      padding-left: var(--space-2);
+      font-family: var(--font-body);
+      font-size: var(--text-xl);
+      font-weight: var(--weight-medium);
+      line-height: var(--leading-normal);
+
+      & + li {
+        margin-top: var(--space-2);
+      }
+
+      &::marker {
+        color: var(--primary);
+      }
+    }
+
+    strong {
+      font-weight: var(--weight-bold);
+    }
+  }
+
+  .description {
+    margin: var(--space-3) 0 0;
+  }
+
+  .stack {
+    margin: var(--space-4) 0 0;
+    font-family: var(--font-display);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-light);
+    color: var(--text-muted);
+  }
+</style>

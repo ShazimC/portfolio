@@ -1,0 +1,13 @@
+- id: plantrees
+  name: Plantrees
+  kind: AI Planner SaaS
+  status: Beta · 84 users
+  start: '2024-06'
+  stack: [Next.js, TypeScript, Tailwind, Drizzle, Supabase, Vercel]
+  description: A digital planner where users can break down, manage, and schedule their plans, goals, and projects using AI.
+
+- id: speechlearn
+  name: SpeechLearn
+  kind: Machine Learning Mobile App
+  stack: [React Native, scikit-learn, TensorFlow]
+  description: A machine learning mobile app that facilitates communication with speech-impaired people.
