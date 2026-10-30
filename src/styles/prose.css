@@ -1,0 +1,97 @@
+/*
+ * Prose: long-form content rendered from Markdown (blog posts).
+ * Wrap rendered HTML in an element with class="prose".
+ */
+
+.prose {
+  > :first-child {
+    margin-top: 0;
+  }
+
+  h2,
+  h3 {
+    font-weight: var(--weight-regular);
+    line-height: var(--leading-tight);
+  }
+
+  h2 {
+    font-size: var(--text-3xl);
+    margin: var(--space-12) 0 var(--space-4);
+  }
+
+  h3 {
+    font-size: var(--text-2xl);
+    margin: var(--space-10) 0 var(--space-3);
+  }
+
+  ul,
+  ol {
+    padding-left: var(--space-6);
+  }
+
+  li {
+    font-family: var(--font-body);
+    font-size: var(--text-xl);
+    font-weight: var(--weight-medium);
+    line-height: var(--leading-normal);
+    padding-left: var(--space-2);
+
+    & + li {
+      margin-top: var(--space-2);
+    }
+
+    &::marker {
+      color: var(--primary);
+      font-family: var(--font-display);
+    }
+  }
+
+  blockquote {
+    margin: var(--space-8) 0;
+    padding-left: var(--space-5);
+    border-left: 2px solid var(--primary);
+
+    p {
+      font-style: italic;
+      color: var(--text-muted);
+    }
+  }
+
+  :not(pre) > code {
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+    padding: 0.1em 0.35em;
+    border-radius: var(--radius-sm);
+    background: color-mix(in oklch, var(--text) 8%, transparent);
+  }
+
+  pre {
+    margin: var(--space-8) 0;
+    padding: var(--space-5);
+    overflow-x: auto;
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    line-height: var(--leading-loose);
+    border-radius: var(--radius-lg);
+    border: 1px solid color-mix(in oklch, var(--text) 10%, transparent);
+    background: color-mix(in oklch, var(--surface), var(--text) 3%);
+  }
+
+  /* Shiki dual themes (see astro.config.mjs): follow the system color scheme. */
+  .astro-code,
+  .astro-code span {
+    color: light-dark(var(--shiki-light), var(--shiki-dark));
+  }
+
+  /* Section break: a short pen stroke instead of a rule. */
+  /* Keep subscripts from stretching the line. */
+  sub {
+    line-height: 0;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--radius-lg);
+  }
+}

@@ -1,0 +1,63 @@
+---
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import ArrowLeftIcon from '@phosphor-icons/core/assets/light/arrow-left-light.svg';
+import { formatDate, getThoughts, readingTime, thoughtTransition, type Thought } from '../../lib/thoughts';
+import '../../styles/prose.css';
+
+export async function getStaticPaths() {
+  const thoughts = await getThoughts();
+  return thoughts.map((thought) => ({ params: { slug: thought.id }, props: { thought } }));
+}
+
+interface Props {
+  thought: Thought;
+}
+
+const { thought } = Astro.props;
+const { title, description, date } = thought.data;
+const { Content } = await render(thought);
+---
+
+<Base title={title} subtitle={description} titleTransition={thoughtTransition(thought.id)} compact>
+  <p class="meta" slot="header">
+    <time datetime={date.toISOString()}>{formatDate(date)}</time>
+    <span aria-hidden="true">·</span>
+    <span>{readingTime(thought.body)}</span>
+  </p>
+
+  <article class="prose">
+    <Content />
+  </article>
+
+  <a href="/thoughts/" class="back">
+    <ArrowLeftIcon class="icon" aria-hidden="true" />
+    Back
+  </a>
+</Base>
+
+<style>
+  .meta {
+    margin: var(--space-4) 0 0;
+  }
+
+  .back {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-top: var(--space-16);
+    font-size: var(--text-lg);
+    color: inherit;
+    --pen-offset: -0.55em;
+  }
+
+  .icon {
+    width: 1.1em;
+    height: 1.1em;
+    transition: transform var(--duration-fast) var(--ease-out);
+  }
+
+  .back:is(:hover, :focus-visible) .icon {
+    transform: translateX(calc(-1 * var(--space-1)));
+  }
+</style>

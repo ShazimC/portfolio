@@ -13,6 +13,7 @@
   /* Fonts */
   --font-display: 'Josefin Sans', sans-serif;
   --font-body: 'Cormorant Infant', serif;
+  --font-mono: ui-monospace, 'SF Mono', Menlo, monospace;
 
   /* Font sizes */
   --text-xs: 0.75rem;

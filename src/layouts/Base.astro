@@ -12,9 +12,13 @@ import CloseIcon from '@phosphor-icons/core/assets/light/x-light.svg';
 interface Props {
   title: string;
   subtitle?: string;
+  /** Tighter header-to-content spacing, e.g. for long-form posts. */
+  compact?: boolean;
+  /** View-transition name shared with a matching element on another page, so the title morphs between them. */
+  titleTransition?: string;
 }
 
-const { title, subtitle } = Astro.props;
+const { title, subtitle, compact = false, titleTransition } = Astro.props;
 
 const links = [
   { href: '/about/', label: 'About' },
@@ -108,10 +112,19 @@ const links = [
       </div>
     </nav>
 
-    <main class="content" transition:animate={fadeSlide}>
+    <main class:list={['content', { compact }]} transition:animate={fadeSlide}>
       <header>
-        <h1 class="title">{title}</h1>
+        {
+          titleTransition ? (
+            <h1 class="title morph" transition:name={titleTransition} transition:animate="initial">
+              {title}
+            </h1>
+          ) : (
+            <h1 class="title">{title}</h1>
+          )
+        }
         {subtitle && <p class="subtitle">{subtitle}</p>}
+        <slot name="header" />
       </header>
       <div class="container">
         <slot />
@@ -399,7 +412,7 @@ const links = [
     width: 100%;
     max-width: var(--width-content);
     box-sizing: border-box;
-    margin-top: var(--space-5);
+    margin-top: var(--space-3);
   }
   .subtitle {
     font-family: var(--font-display);
@@ -411,5 +424,9 @@ const links = [
 
   .container {
     margin-top: var(--space-16);
+  }
+
+  .compact .container {
+    margin-top: var(--space-10);
   }
 </style>

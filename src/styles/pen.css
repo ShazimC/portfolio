@@ -21,7 +21,7 @@
   position: absolute;
   left: var(--pen-inset, -0.1em);
   right: var(--pen-inset, -0.1em);
-  bottom: var(--pen-offset, -0.38em);
+  bottom: var(--pen-offset, -0.22em);
   height: var(--pen-height);
   background: var(--primary);
   mask: var(--pen-stroke) center / 100% 100% no-repeat;

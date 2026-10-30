@@ -12,6 +12,13 @@ export default defineConfig({
   }),
 
   integrations: [mdx(), react()],
+  markdown: {
+    shikiConfig: {
+      // Colors are exposed as --shiki-light/--shiki-dark and picked in prose.css.
+      themes: { light: 'rose-pine-dawn', dark: 'rose-pine' },
+      defaultColor: false,
+    },
+  },
   server: {
     host: '::', // needed for railway
   },

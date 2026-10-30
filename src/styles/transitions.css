@@ -17,3 +17,20 @@
     mask-position: 0 0;
   }
 }
+
+/*
+ * Shared-element morphs (e.g. a thought's list title ↔ its post heading).
+ * Add class="morph" alongside transition:name. A matched pair morphs; an element
+ * with no partner on the other page follows the page's own hide/reveal instead.
+ */
+.morph {
+  view-transition-class: morph;
+}
+
+::view-transition-old(*.morph):only-child {
+  animation: page-hide var(--duration-fast) both;
+}
+
+::view-transition-new(*.morph):only-child {
+  animation: page-in var(--duration-slow) var(--ease) both;
+}

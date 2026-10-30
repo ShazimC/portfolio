@@ -12,6 +12,17 @@ const books = defineCollection({
   }),
 });
 
+const thoughts = defineCollection({
+  loader: glob({ base: 'src/content/thoughts', pattern: '*.md' }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    date: z.coerce.date(),
+    draft: z.boolean().default(false),
+  }),
+});
+
 export const collections = {
   books,
+  thoughts,
 };

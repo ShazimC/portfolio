@@ -1,0 +1,52 @@
+---
+import { formatDate, readingTime, thoughtTransition, type Thought } from '../lib/thoughts';
+
+interface Props {
+  thought: Thought;
+}
+
+const { thought } = Astro.props;
+const { title, description, date } = thought.data;
+---
+
+<a href={`/thoughts/${thought.id}/`} class="thought pen-none">
+  <p class="meta">
+    <time datetime={date.toISOString()}>{formatDate(date)}</time>
+    <span aria-hidden="true">·</span>
+    <span>{readingTime(thought.body)}</span>
+  </p>
+  <h2
+    class="title morph"
+    transition:name={thoughtTransition(thought.id)}
+    transition:animate="initial"
+  >
+    {title}
+  </h2>
+  <p class="description">{description}</p>
+</a>
+
+<style>
+  .thought {
+    display: block;
+    color: inherit;
+  }
+
+  .meta {
+    margin: 0 0 var(--space-3);
+  }
+
+  .title {
+    font-size: var(--text-3xl);
+    font-weight: var(--weight-regular);
+    line-height: var(--leading-tight);
+    transition: color var(--duration-fast) var(--ease-out);
+
+    .thought:is(:hover, :focus-visible) & {
+      color: var(--link);
+    }
+  }
+
+  .description {
+    margin: var(--space-2) 0 0;
+  }
+</style>
