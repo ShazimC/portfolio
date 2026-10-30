@@ -7,6 +7,7 @@ import { Image } from 'astro:assets';
 import { ClientRouter } from 'astro:transitions';
 import { fadeSlide } from '../lib/transitions';
 import avatar from '../assets/photos/IMG_1902.jpg';
+import CloseIcon from '@phosphor-icons/core/assets/light/x-light.svg';
 
 interface Props {
   title: string;
@@ -14,6 +15,12 @@ interface Props {
 }
 
 const { title, subtitle } = Astro.props;
+
+const links = [
+  { href: '/about/', label: 'About' },
+  { href: '/work/', label: 'Work' },
+  { href: '/thoughts/', label: 'Thoughts' },
+];
 ---
 
 <html lang="en">
@@ -44,11 +51,61 @@ const { title, subtitle } = Astro.props;
           position="top"
         />
       </a>
-      <ul>
-        <li><a href="/about/">About</a></li>
-        <li><a href="/work/">Work</a></li>
-        <li><a href="/thoughts/">Thoughts</a></li>
+      <ul class="links">
+        {
+          links.map(({ href, label }) => (
+            <li>
+              <a href={href}>{label}</a>
+            </li>
+          ))
+        }
       </ul>
+
+      <button class="menu-toggle" popovertarget="menu" aria-label="Open menu">
+        <Image
+          src={avatar}
+          alt="Shazim Ch."
+          width={48}
+          height={48}
+          fit="cover"
+          position="top"
+          densities={[1, 2]}
+          loading="eager"
+          class="photo photo-sm"
+        />
+      </button>
+
+      <div id="menu" class="menu" popover>
+        <button
+          class="menu-close"
+          popovertarget="menu"
+          popovertargetaction="hide"
+          aria-label="Close menu"
+        >
+          <CloseIcon class="icon" aria-hidden="true" />
+        </button>
+        <a href="/" class="menu-home pen-none" aria-label="Home">
+          <Image
+            src={avatar}
+            alt="Shazim Ch."
+            width={48}
+            height={48}
+            fit="cover"
+            position="top"
+            densities={[1, 2]}
+            class="photo photo-sm"
+          />
+        </a>
+        <ul class="menu-links">
+          {
+            links.map(({ href, label }) => (
+              <li>
+                <a href={href}>{label}</a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
     </nav>
 
     <main class="content" transition:animate={fadeSlide}>
@@ -63,7 +120,77 @@ const { title, subtitle } = Astro.props;
   </body>
 </html>
 
+<script>
+  // Close when the backdrop (anything outside the link list) is clicked.
+  document.addEventListener('click', (event) => {
+    const menu = document.getElementById('menu');
+    if (event.target === menu) menu?.hidePopover();
+  });
+
+  // Navigating from the open menu: capture the page as a single root snapshot (the
+  // only kind that keeps backdrop-filter), so the blurred menu crossfades into the
+  // new page. Named groups like <main> would otherwise paint over it.
+  const MENU_NAV = 'data-menu-nav';
+  const html = document.documentElement;
+
+  document.addEventListener('astro:before-preparation', () => {
+    if (document.getElementById('menu')?.matches(':popover-open')) html.setAttribute(MENU_NAV, '');
+  });
+
+  document.addEventListener('astro:before-swap', (event) => {
+    if (!html.hasAttribute(MENU_NAV)) return;
+    // The swap replaces <html> attributes, so restore the flag on the incoming page.
+    event.newDocument.documentElement.setAttribute(MENU_NAV, '');
+    event.viewTransition.finished.finally(() => html.removeAttribute(MENU_NAV));
+  });
+
+  document.addEventListener('astro:after-swap', () => {
+    const menu = document.getElementById('menu');
+    if (!html.hasAttribute(MENU_NAV) || !menu?.matches(':popover-open')) return;
+    menu.dataset.state = 'gone';
+    menu.hidePopover();
+    // Flush styles so the close lands with transitions off before restoring them.
+    getComputedStyle(menu).opacity;
+    delete menu.dataset.state;
+  });
+
+  // Mobile: tuck the menu avatar away while scrolling down, bring it back on scroll up.
+  // Runs once; the nav persists across navigations.
+  const SCROLL_THRESHOLD = 8;
+  const nav = document.querySelector('nav');
+  let lastY = scrollY;
+  let ticking = false;
+
+  addEventListener(
+    'scroll',
+    () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        const y = Math.max(scrollY, 0);
+        const delta = y - lastY;
+        if (Math.abs(delta) >= SCROLL_THRESHOLD) {
+          nav?.toggleAttribute('data-tucked', delta > 0 && y > SCROLL_THRESHOLD);
+          lastY = y;
+        }
+        ticking = false;
+      });
+    },
+    { passive: true },
+  );
+
+  document.addEventListener('astro:after-swap', () => {
+    nav?.removeAttribute('data-tucked');
+    lastY = scrollY;
+  });
+</script>
+
 <style>
+  /* Mobile avatar size; spans nav (toggle, close button) and header (reserved space). */
+  body {
+    --avatar-sm: 3rem;
+  }
+
   nav {
     display: flex;
     flex-direction: column;
@@ -93,16 +220,16 @@ const { title, subtitle } = Astro.props;
     }
 
     .photo:hover {
-      transform: scale(1.02);
+      transform: scale(1.03);
       box-shadow: 1px 1px 5px var(--shadow-color);
     }
 
     .photo:active {
-      transform: scale(0.98);
+      transform: scale(0.97);
       box-shadow: none;
     }
 
-    ul {
+    .links {
       list-style-type: none;
       display: flex;
       flex-direction: column;
@@ -120,6 +247,152 @@ const { title, subtitle } = Astro.props;
         --pen-offset: 0;
         --pen-rest-opacity: 0;
       }
+    }
+  }
+
+  .menu-toggle {
+    display: none;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: pointer;
+    border-radius: var(--radius-lg);
+  }
+
+  .photo.photo-sm {
+    width: var(--avatar-sm);
+    height: var(--avatar-sm);
+    border-radius: var(--radius-lg);
+  }
+
+  .menu {
+    position: fixed;
+    inset: 0;
+    width: auto;
+    height: auto;
+    margin: 0;
+    border: 0;
+    padding: var(--space-8) var(--space-6);
+    /* Centered via block layout so it holds while display animates to none on close. */
+    align-content: center;
+    color: var(--text);
+    background: color-mix(in oklch, var(--background) 55%, transparent);
+    -webkit-backdrop-filter: blur(32px);
+    backdrop-filter: blur(32px);
+    opacity: 0;
+    transition:
+      opacity var(--duration-normal) var(--ease),
+      overlay var(--duration-normal) allow-discrete,
+      display var(--duration-normal) allow-discrete;
+
+    .menu-home,
+    .menu-close {
+      position: absolute;
+      top: var(--space-4);
+    }
+
+    .menu-home {
+      right: var(--space-4);
+    }
+
+    .menu-close {
+      left: var(--space-4);
+      display: grid;
+      place-items: center;
+      width: var(--avatar-sm);
+      height: var(--avatar-sm);
+      padding: 0;
+      border: 0;
+      border-radius: var(--radius-lg);
+      background: none;
+      color: inherit;
+      cursor: pointer;
+      transition: transform var(--duration-fast) var(--ease);
+    }
+
+    .icon {
+      width: var(--size-icon);
+      height: var(--size-icon);
+    }
+  }
+
+  .menu:popover-open {
+    opacity: 1;
+  }
+
+  .menu[data-state='gone'] {
+    transition: none;
+  }
+
+  @starting-style {
+    .menu:popover-open {
+      opacity: 0;
+    }
+  }
+
+  .menu-links {
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+    width: fit-content;
+    margin: 0;
+    padding: 0;
+    font-size: var(--text-5xl);
+
+    a {
+      color: inherit;
+      --pen-rest-opacity: 0;
+    }
+  }
+
+  @media (--md-down) {
+    nav {
+      position: fixed;
+      top: var(--space-4);
+      right: var(--space-4);
+      z-index: 1;
+      width: auto;
+      margin: 0;
+      padding: 0;
+      background: none;
+
+      .nav-title,
+      .links {
+        display: none;
+      }
+    }
+
+    .menu-toggle {
+      display: block;
+    }
+
+    nav > .menu-toggle {
+      transition: transform var(--duration-normal) var(--ease);
+    }
+
+    /* Slide fully past the right edge, including the nav's inset. */
+    nav[data-tucked]:not(:focus-within) > .menu-toggle {
+      transform: translateX(calc(100% + var(--space-4)));
+    }
+
+    header {
+      padding-right: calc(var(--avatar-sm) + var(--space-4));
+    }
+
+    :global(html[data-menu-nav] [data-astro-transition-scope]) {
+      view-transition-name: none !important;
+    }
+
+    :global(html:has(.menu:popover-open)) {
+      overflow: hidden;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .menu,
+    nav > .menu-toggle {
+      transition: none;
     }
   }
   .content {

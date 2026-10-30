@@ -3,3 +3,6 @@
 @custom-media --md (min-width: 48rem);
 @custom-media --lg (min-width: 64rem);
 @custom-media --xl (min-width: 80rem);
+
+/* Max-width counterpart: iPad mini portrait (768px) and smaller. */
+@custom-media --md-down (width <= 48rem);

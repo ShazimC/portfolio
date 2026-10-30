@@ -8,6 +8,12 @@ body {
   width: 100%;
   max-width: var(--width-page);
   margin: var(--space-16) auto;
+
+  @media (--md-down) {
+    box-sizing: border-box;
+    padding: 0 var(--space-5);
+    margin: var(--space-6) auto;
+  }
 }
 
 ::selection {
