@@ -22,77 +22,61 @@ const thoughts = defineCollection({
   }),
 });
 
-/* Resume: src/data/resume/*.yaml is the source of truth for /work. */
-const resume = (name: string) => file(`src/data/resume/${name}.yaml`);
-const month = z.coerce.date();
+/* Single entry (`resume`) from src/content/resume/resume.yaml, the source of truth for /work. */
+/* `YYYY-MM` strings in YAML (keeps the editor's JSON schema happy), parsed to Dates. */
+const month = z
+  .string()
+  .regex(/^\d{4}-(0[1-9]|1[0-2])$/, 'Use YYYY-MM')
+  .transform((value) => new Date(value));
 
-const experience = defineCollection({
-  loader: resume('experience'),
-  schema: z.object({
-    company: z.string(),
-    title: z.string(),
-    team: z.string(),
-    location: z.string(),
-    start: month,
-    end: month.optional(),
-    stack: z.array(z.string()),
-    highlights: z.array(
-      z.object({
-        label: z.string().optional(),
-        text: z.string(),
-        featured: z.boolean().default(false),
-      }),
-    ),
-  }),
-});
-
-const projects = defineCollection({
-  loader: resume('projects'),
-  schema: z.object({
-    name: z.string(),
-    kind: z.string(),
-    status: z.string().optional(),
-    url: z.url().optional(),
-    start: month.optional(),
-    stack: z.array(z.string()),
-    description: z.string(),
-  }),
-});
-
-const awards = defineCollection({
-  loader: resume('awards'),
-  schema: z.object({
-    title: z.string(),
-    date: month,
-    description: z.string(),
-  }),
-});
-
-const education = defineCollection({
-  loader: resume('education'),
-  schema: z.object({
-    school: z.string(),
-    degree: z.string(),
-    location: z.string(),
-    start: month,
-    end: month,
-  }),
-});
-
-const skills = defineCollection({
-  loader: resume('skills'),
-  schema: z.object({
-    label: z.string(),
-    items: z.array(z.string()),
-  }),
+const resume = defineCollection({
+  loader: file('src/content/resume/resume.yaml'),
+  schema: ({ image }) =>
+    z.object({
+      name: z.string(),
+      location: z.string(),
+      links: z.record(z.string(), z.url()),
+      education: z.array(
+        z.object({
+          school: z.string(),
+          degree: z.string(),
+          location: z.string(),
+          start: month,
+          end: month,
+        }),
+      ),
+      experience: z.array(
+        z.object({
+          company: z.string(),
+          title: z.string(),
+          team: z.string(),
+          location: z.string(),
+          start: month,
+          end: month.optional(),
+          stack: z.array(z.string()),
+          summary: z.string(),
+          highlights: z.array(z.string()),
+        }),
+      ),
+      projects: z.array(
+        z.object({
+          name: z.string(),
+          kind: z.string(),
+          status: z.string().optional(),
+          url: z.url(),
+          image: image().optional(),
+          start: month.optional(),
+          stack: z.array(z.string()),
+          description: z.string(),
+        }),
+      ),
+      skills: z.array(z.object({ label: z.string(), items: z.array(z.string()) })),
+      awards: z.array(z.object({ title: z.string(), date: month, description: z.string() })),
+    }),
 });
 
 export const collections = {
   books,
   thoughts,
-  experience,
-  projects,
-  awards,
-  education,
-  skills,
+  resume,
 };

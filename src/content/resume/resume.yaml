@@ -1,0 +1,103 @@
+# yaml-language-server: $schema=../../../.astro/collections/resume.schema.json
+# Single source of truth for the resume. /work renders a lean view of it:
+# experience → timeline (title, company, dates, summary); projects → cards.
+resume:
+  name: Shazim Chaudhary
+  location: New Jersey, U.S.
+  links:
+    github: https://github.com/ShazimC
+    linkedin: https://www.linkedin.com/in/shazimchaudhary
+
+  education:
+    - school: Rutgers University
+      degree: Bachelor of Science in Computer Engineering
+      location: New Brunswick, NJ
+      start: '2016-09'
+      end: '2020-05'
+
+  experience:
+    - company: Xbox
+      title: Full Stack Engineer
+      team: PlayFab
+      location: Remote, NJ
+      start: '2022-08'
+      stack: [TypeScript, React, C#, .NET, Azure]
+      summary: >-
+        Web app engineer on PlayFab, the biggest game development cloud platform on the market.
+        I work on its main game management portal, tending to all its needs like design, build, tooling, 
+        testing, infrastructure, security, accessibility, and going to bat for it.
+      highlights:
+        - Migrated the web portal from AWS to Azure with zero downtime, reducing average monthly downtime by 48.8%.
+        - Ensured critical observability and alerts via CPU usage, requests, and resource health monitoring.
+        - Led the design and development of the core UI component library for the web portal's modernized design.
+        - Hardened security by deploying Azure Front Door and critical WAF configs against DDoS, XSS, and malicious traffic.
+        - Re-engineered the PlayStream event live streaming UI, including scalable rendering throttle ratios up to 1:1000 requests per interval.
+        - Improved performance and UX of 31 critical features by migrating from Knockout to React and .NET.
+        - Developed the PlayFab ICM support system for PubSub matchmaking live notifications.
+        - 'Game Testing Platform: designed and developed the GUI portal with the Xbox Design System team.'
+        - Integrated cross-tenant authentication for Microsoft and first-party studio employees via MSAL and GDAS SDKs.
+        - Developed the live test session activity polling and filtering dashboard.
+        - Ensured robust feature development via critical E2E Playwright test coverage.
+
+    - company: AT&T
+      title: Professional Member of Technical Staff
+      team: Open Test Framework
+      location: Middletown, NJ
+      start: '2021-08'
+      end: '2022-08'
+      stack: [MongoDB, Express, Angular, Node.js, Spring Boot, Azure DevOps]
+      summary: >-
+        Lead web app engineer for Open Test Framework, a workflow processing app that runs over a million
+        executions a month and saves AT&T more than $36M a year. I built its mission-critical test catalog, onboarded new engineers 
+        and guided junior engineers through day to day problem solving.
+      highlights:
+        - Lead Web App Engineer for OTF, a workflow processing app that generates 1M+ executions a month and saves $36M+ a year.
+        - 'Test Catalog: led the design and development of our mission-critical, fully browsable test catalog.'
+        - "OTF Redesign: led the development of OTF's new redesign from conception to production."
+
+    - company: AT&T
+      title: Design Engineer
+      team: Open Test Framework
+      location: Middletown, NJ
+      start: '2020-06'
+      end: '2021-07'
+      stack: [MongoDB, Express, Angular, Node.js, Spring Boot, Azure DevOps]
+      summary: >-
+        Redesigned Open Test Framework's entire GUI from conception to production, earning the 'Connect - Excellence' award. Along the way I cut
+        security vulnerabilities by 99.6%, took heavy queries from minutes to milliseconds, and set up its
+        accessibility, testing, and permissions foundations.
+      highlights:
+        - "OTF Redesign: received the 'Connect - Excellence' award for redesigning OTF's entire GUI."
+        - 'Security: reduced security vulnerabilities by 99.6% by migrating the web stack by 6 versions.'
+        - 'Performance: optimized heavy query times by 99.91% (minutes to milliseconds) using Express server pagination algorithms.'
+        - 'Accessibility: standardized an OTF-specific accessibility checklist using WCAG 2.0 and AT&T compliance requirements.'
+        - 'Automated Testing: configured and led automated testing for the web app towards 80% successful coverage.'
+        - 'Permissions Architecture: designed and implemented the permissions architecture for the UI using CASL.js.'
+
+  projects:
+    - name: Plantrees
+      kind: AI Planner SaaS
+      status: Beta · 84 users
+      url: https://plantrees.app
+      start: '2024-06'
+      stack: [Next.js, TypeScript, Tailwind, Drizzle, Supabase, Vercel]
+      description: A digital planner where users can break down, manage, and schedule their plans, goals, and projects using AI.
+
+    - name: SpeechLearn
+      kind: Machine Learning Mobile App
+      url: https://github.com/ShazimC/SpeechLearningApp
+      stack: [React Native, scikit-learn, TensorFlow]
+      description: A machine learning mobile app that facilitates communication with speech-impaired people.
+
+  skills:
+    - label: Languages
+      items: [JavaScript, TypeScript, HTML, CSS, C#, Java, Python]
+    - label: Frameworks & Libraries
+      items: [React, .NET, Angular, Node.js, Express, React Native, Spring Boot]
+    - label: Tools & Technologies
+      items: [Docker, Kubernetes, Azure, Git, Unix CLI, MongoDB, SQL, PostgreSQL]
+
+  awards:
+    - title: 1st Place, AT&T Software Symposium Hackathon 2020
+      date: '2020-10'
+      description: Won first place for SpeechLearn in the Technology & Life Improvement track.
