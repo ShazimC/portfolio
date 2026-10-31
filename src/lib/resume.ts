@@ -1,4 +1,7 @@
-import { getEntry } from 'astro:content';
+import { getEntry, type CollectionEntry } from 'astro:content';
+
+export type Resume = CollectionEntry<'resume'>['data'];
+export type Project = Resume['projects'][number];
 
 export async function getResume() {
   const entry = await getEntry('resume', 'resume');

@@ -1,0 +1,98 @@
+---
+import { Image } from 'astro:assets';
+import type { Project } from '../lib/resume';
+
+interface Props {
+  project: Project;
+}
+
+const { project } = Astro.props;
+const { name, url, image, description } = project;
+
+// Single source for the card width: drives the CSS and the image's rendered size (1rem = 16px).
+const widthRem = 16;
+const width = `${widthRem}rem`;
+---
+
+<a href={url} target="_blank" rel="noopener noreferrer" class="project pen-none">
+  {
+    image && (
+      <div class="cover">
+        <Image src={image} alt="" width={widthRem * 16} densities={[1, 2]} />
+      </div>
+    )
+  }
+  <h3 class="name">{name}</h3>
+  <p class="description">{description}</p>
+</a>
+
+<style define:vars={{ width }}>
+  /* Layout and motion after maggieappleton.com's essay cards. */
+  .project {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    inline-size: var(--width);
+    block-size: 100%;
+    padding: var(--space-5);
+    border: var(--border-thin) solid var(--border-color);
+    border-radius: var(--radius-md);
+    background: var(--surface-raised);
+    color: var(--text);
+    box-shadow: var(--shadow-soft);
+    transition:
+      transform var(--duration-normal) var(--ease-spring),
+      box-shadow var(--duration-fast) var(--ease);
+
+    &:is(:hover, :focus-visible) {
+      transform: scale(var(--scale-lift));
+      box-shadow: var(--shadow-lifted);
+    }
+
+    &:active {
+      transform: none;
+      transition-duration: var(--duration-fast);
+    }
+  }
+
+  .cover {
+    aspect-ratio: 1;
+    margin-bottom: var(--space-3);
+    overflow: hidden;
+    border-radius: var(--radius-sm);
+
+    img {
+      inline-size: 100%;
+      block-size: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .name {
+    font-family: var(--font-body);
+    font-size: var(--text-2xl);
+    font-weight: var(--weight-regular);
+    line-height: var(--leading-tight);
+    transition: color var(--duration-fast) var(--ease);
+
+    .project:is(:hover, :focus-visible) & {
+      color: var(--link);
+    }
+  }
+
+  .description {
+    margin: var(--space-2) 0 0;
+    font-family: var(--font-display);
+    font-size: var(--text-base);
+    font-weight: var(--weight-light);
+    line-height: var(--leading-normal);
+    color: var(--text-muted);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .project,
+    .name {
+      transition: none;
+    }
+  }
+</style>

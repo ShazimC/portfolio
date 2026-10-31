@@ -17,13 +17,13 @@ resume:
 
   experience:
     - company: Xbox
-      title: Full Stack Engineer
+      title: Design Engineer
       team: PlayFab
       location: Remote, NJ
       start: '2022-08'
       stack: [TypeScript, React, C#, .NET, Azure]
       summary: >-
-        Web app engineer on PlayFab, the biggest game development cloud platform on the market.
+        Working on PlayFab, the biggest game development cloud platform on the market.
         I work on its main game management portal, tending to all its needs like design, build, tooling, 
         testing, infrastructure, security, accessibility, and going to bat for it.
       highlights:
@@ -77,17 +77,16 @@ resume:
   projects:
     - name: Plantrees
       kind: AI Planner SaaS
-      status: Beta · 84 users
       url: https://plantrees.app
       start: '2024-06'
       stack: [Next.js, TypeScript, Tailwind, Drizzle, Supabase, Vercel]
-      description: A digital planner where users can break down, manage, and schedule their plans, goals, and projects using AI.
+      description: A feature rich digital planner where users can plan, organize, execute with AI.
 
     - name: SpeechLearn
       kind: Machine Learning Mobile App
       url: https://github.com/ShazimC/SpeechLearningApp
       stack: [React Native, scikit-learn, TensorFlow]
-      description: A machine learning mobile app that facilitates communication with speech-impaired people.
+      description: Hackathon winning machine learning app that facilitates communication with speech-impaired people.
 
   skills:
     - label: Languages

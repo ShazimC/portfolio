@@ -49,7 +49,7 @@
   blockquote {
     margin: var(--space-8) 0;
     padding-left: var(--space-5);
-    border-left: 2px solid var(--primary);
+    border-left: var(--border-thick) solid var(--primary);
 
     p {
       font-style: italic;
@@ -73,8 +73,8 @@
     font-size: var(--text-sm);
     line-height: var(--leading-loose);
     border-radius: var(--radius-lg);
-    border: 1px solid color-mix(in oklch, var(--text) 10%, transparent);
-    background: color-mix(in oklch, var(--surface), var(--text) 3%);
+    border: var(--border-thin) solid var(--border-color);
+    background: var(--surface-raised);
   }
 
   /* Shiki dual themes (see astro.config.mjs): follow the system color scheme. */
